@@ -29,7 +29,18 @@ const githubIssues = {
       {
         qDef: {
           qFieldDefs: ["date"],
-          qLabel: "Repo",
+          qLabel: "Date",
+          qSortCriterias: [
+            {
+              qSortByNumeric: 1
+            }
+          ]
+        }
+      },
+      {
+        qDef: {
+          qFieldDefs: ["iscorerepo"],
+          qLabel: "Is a core repo",
           qSortCriterias: [
             {
               qSortByNumeric: 1
@@ -49,7 +60,7 @@ const githubIssues = {
         }
       },
     ],
-    qInterColumnSortOrder: [1, 0],
+    qInterColumnSortOrder: [3, 0],
     qInitialDataFetch: [
       {
         qTop: 0,

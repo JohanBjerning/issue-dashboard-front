@@ -27,11 +27,11 @@ class App extends Component {
         process.env.NODE_ENV === "production"
           ? await global.getActiveDoc()
           : await global.openDoc("core-issues.qvf");
-
+      
       const field = await app.getField('usertype');
       const value = await field.select("NONE");
 
-      const field2 = await app.getField('ignore');
+      const field2 = await app.getField('iscorerepo');
       const value2 = await field2.select("yes");
 
       const issuesModel = await app.createSessionObject(githubIssues);
