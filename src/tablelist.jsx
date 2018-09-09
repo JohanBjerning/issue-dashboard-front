@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import "./tablelist.css";
 
 class IssueTable extends React.Component {
+
+    coreIssuesSelected = true;
+    showHandledIssues = false;
+    qlikApp;
+
     constructor(props) {
         super(props);
 
@@ -11,6 +16,44 @@ class IssueTable extends React.Component {
         };
 
         props.model.on("changed", () => this.updateLayout());
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.qlikApp = props.qlikApp;
+    }
+
+    async toggleCoreIssues() {
+        if (app) {
+            const field = await this.qlikApp.getField('iscorerepo');
+            // Toggle selection of core repos
+            this.coreIssuesSelected ? await field.select("no") : await field.select("yes");
+            this.coreIssuesSelected = !this.coreIssuesSelected;
+        }
+    }
+
+    async toggleHandeledIssues() {
+        if (app) {
+            const field = await this.qlikApp.getField('usertype');
+            this.showHandledIssues ? await field.clear() : await field.select("NONE");
+            this.showHandledIssues = !this.showHandledIssues;
+        }
+    }
+
+    handleKeyPress(event) {
+        switch (event.keyCode) {
+            case 99:
+                this.toggleCoreIssues();
+                break;
+            case 97:
+                this.toggleHandeledIssues();
+            default:
+                console.log(event.keyCode);
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener("keypress", this.handleKeyPress, false);
+    }
+    componentWillUnmount() {
+        document.removeEventListener("keypress", this.handleKeyPress, false);
     }
 
 
