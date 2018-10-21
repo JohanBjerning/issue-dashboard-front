@@ -6,6 +6,8 @@ class IssueTable extends React.Component {
     coreIssuesSelected = true;
     showHandledIssues = false;
     qlikApp;
+    KEY_CODE_c = 99;
+    KEY_CODE_a = 97;
 
     constructor(props) {
         super(props);
@@ -39,13 +41,13 @@ class IssueTable extends React.Component {
 
     handleKeyPress(event) {
         switch (event.keyCode) {
-            case 99:
+            case this.KEY_CODE_c:
                 this.toggleCoreIssues();
                 break;
-            case 97:
+            case this.KEY_CODE_a:
                 this.toggleHandeledIssues();
             default:
-                console.log(event.keyCode);
+                console.log(`Unbound keycode: ${event.keyCode}`);
         }
     }
 
