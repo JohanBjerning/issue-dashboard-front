@@ -46,6 +46,7 @@ class IssueTable extends React.Component {
                 break;
             case this.KEY_CODE_a:
                 this.toggleHandeledIssues();
+                break;
             default:
                 console.log(`Unbound keycode: ${event.keyCode}`);
         }
