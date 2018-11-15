@@ -64,7 +64,7 @@ const githubIssues = {
     qInitialDataFetch: [
       {
         qTop: 0,
-        qHeight: 8,
+        qHeight: 15,
         qLeft: 0,
         qWidth: 17
       }

@@ -23,24 +23,25 @@ class App extends Component {
 
     try {
       const global = await session.open();
-      const app =
+      const qlikApp =
         process.env.NODE_ENV === "production"
           ? await global.getActiveDoc()
           : await global.openDoc("core-issues.qvf");
       
-      const field = await app.getField('usertype');
+      const field = await qlikApp.getField('usertype');
       const value = await field.select("NONE");
 
-      const field2 = await app.getField('iscorerepo');
+      const field2 = await qlikApp.getField('iscorerepo');
       const value2 = await field2.select("yes");
 
-      const issuesModel = await app.createSessionObject(githubIssues);
+      const issuesModel = await qlikApp.createSessionObject(githubIssues);
       const issuesLayout = await issuesModel.getLayout();;
 
       this.setState({
         app,
         issuesModel,
-        issuesLayout
+        issuesLayout,
+        qlikApp
       });
     } catch (error) {
       console.log(error);
@@ -63,7 +64,8 @@ class App extends Component {
       error,
       app,
       issuesLayout,
-      issuesModel
+      issuesModel,
+      qlikApp
     } = this.state;
     if (error) {
       const msg =
@@ -97,6 +99,7 @@ class App extends Component {
             <TableList
               layout={issuesLayout}
               model={issuesModel}
+              qlikApp={qlikApp}
             />
           </div>
         </div>
